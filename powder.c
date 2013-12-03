@@ -1,7 +1,9 @@
 /**
  * Powder Toy - Main source
  *
- * Powder Toy is the legal property of Stanislaw Skowronek.
+ * Copyright
+ * 2008 - Stanislaw Skowronek.
+ * 2013 - #newagepowder staff
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -97,6 +99,7 @@ char *it_msg =
     "\bbirc.unaligned.org #wtf\n"
     "\n"
     "\bg(c) 2008-9 Stanislaw K Skowronek\n"
+    "\bg(c) 2013 #newagepowder staff
     "\n"
     "\bgSpecial thanks to Brian Ledbetter for maintaining ports & server development."
     "\nThanks to CW for hosting the server."
@@ -5122,7 +5125,7 @@ int cpu_check(void)
     return 0;
 }
 
-char *tag = "(c) 2008-9 Stanislaw Skowronek";
+char *tag = "(c) 2008-9 Stanislaw Skowronek\n(c) 2013 #newagepowder staff";
 int itc = 0;
 char itc_msg[64] = "[?]";
 
