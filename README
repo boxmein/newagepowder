@@ -63,16 +63,14 @@ Building
 
     Prerequisites: 
     
-    * SDL for Visual Studio http://libsdl.org/release/SDL-devel-1.2.15-VC.zip
-      Extract this into the source code folder under include\, so that there'd be
-      "newagepowder\include\SDL\SDL.h".
-      Alternatively extract this into 
-      "C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\include", where
-      10.0 is your correct Visual Studio version and so that there'll be a SDL 
-      subfolder inside. This will make it available for future projects with 
-      Visual Studio.
-      
-    * libbz2.lib + headers for Visual Studio 
+    * a bunch of Visual Studio .lib files and includes.
+      Get them from the TPT++ build guide: https://dl.dropbox.com/u/43784416/PowderToy/Required%20Libraries.zip
+      (if the link changes, you'll find the link Required Libraries somewhere)
+      http://powdertoy.co.uk/Wiki/W/Compiling_tpt%2B%2B_with_Visual_studio.html
+
+      Shortly and simply extract everything in there into your TPT source 
+      folder. Honestly, you'll not need half the things there. But some you will
+      and those some are included in there.
 
     Process:
 
@@ -90,15 +88,48 @@ Building
        box via OK.
 
     3. Select Project -> Properties... 
-       Under Configuration Properties -> General: 
-       1. Change the Output Directory optionally to: $(SolutionDir)Build\
-       2. Change the Target Name to whatever you want, optionally use 
-          $(Configuration) in the name to differentiate between Debug and 
-          Release builds.
-       Under Configuration Properties -> VC++ Directories:
-       1. Edit Include Directories to include $(ProjectDir)include\ (if you 
-          extracted SDL into here)
-       2. 
+       
+      Under Configuration Properties -> General: 
+      1. Change the Output Directory optionally to: $(SolutionDir)Build\
+      2. Change the Target Name to whatever you want, optionally use 
+         $(Configuration) in the name to differentiate between Debug and 
+         Release builds.
+       
+      Under Configuration Properties -> VC++ Directories:
+      1. Edit Include Directories to include $(ProjectDir)includes\ 
+      2. Edit Library Directories to include $(ProjectDir)Libraries\
+         (for a static compile, use Staticlibs)
+      Under Configuration Properties -> C/C++:
+      1. Under General, select Warning Level and optionally turn off all 
+         warnings. The code is terribly littered with them and they might be 
+         disorienting.
+      2. Under Preprocessor, edit the Preprocessor Definitions variable with 
+         the following few defines: 
+         X86
+         X86_SSE2
+         (for a static compile, add the below define: )
+         PTW32_STATIC_LIB
+      3. Under Code Generation, you can set the Floating Point Model to Fast in
+         order to speed up the running time.
+
+      Under Configuration Properties -> Code Generation -> Linker -> Input: 
+      1. Edit Additional Dependencies to involve: (note some may be redundant) 
+         shell32.lib
+         ws2_32.lib
+         wsock32.lib
+         SDL.lib
+         SDLmain.lib
+         libbz2.lib
+         regex.lib
+         pthreadVC2.lib
+         (for a static compile, add the below two:)
+         winmm.lib
+         dxguid.lib
+
+      ... And that's it to make a Visual Studio build file for TPT!
+      Hit F7 or click the Play button to build. Errors might not happen now!
+       
+
 
   OSX
   ~~~
