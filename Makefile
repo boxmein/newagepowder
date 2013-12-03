@@ -78,6 +78,5 @@ cross-powder-sse.exe: $(SOURCES) $(HEADERS) powder-res.o
 deps: 
 	sudo apt-get install libsdl1.2-dev libbz2-dev
 
-# Windows: check out the readme
-# OSX too
-# non-Debian Linux too
+# Windows: check out the README.md
+# OSX and non-debian linux distributions too
