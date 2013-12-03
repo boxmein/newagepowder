@@ -30,7 +30,6 @@ Building
 
     It's easier if you get MinGW (select the base, msys and C++ packages).
 
-
     (Note: chances are your %PATH% won't be updated after the install until
      the next restart so if you're impatient you can use the following: 
      `set PATH=%PATH%;C:\MinGW\bin` command in order to put the MinGW binary
@@ -56,6 +55,50 @@ Building
 
     The two can either be placed to any directory on the PATH or into the repo's
     directory itself.
+
+    -----------------
+
+    For Visual Studio (later VS), there's a tutorial for newer TPT versions 
+    which will apply quite a lot to the project at hand: 
+
+    Prerequisites: 
+    
+    * SDL for Visual Studio http://libsdl.org/release/SDL-devel-1.2.15-VC.zip
+      Extract this into the source code folder under include\, so that there'd be
+      "newagepowder\include\SDL\SDL.h".
+      Alternatively extract this into 
+      "C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\include", where
+      10.0 is your correct Visual Studio version and so that there'll be a SDL 
+      subfolder inside. This will make it available for future projects with 
+      Visual Studio.
+      
+    * libbz2.lib + headers for Visual Studio 
+
+    Process:
+
+    1. Open Visual Studio, select 
+       File -> New -> New Project from Existing Code...
+       and from there select your TPT source folder.
+       The project type should be "Windows application project" or similar. 
+       Nothing else should be required - press Finish in the wizard.
+
+    2. Keep the "Solution" selected in the Solution Explorer window, then select
+       Build -> Configuration Manager. Under the "Active Solution Configuration", 
+       select Release. We'll configure this first, you can set up Debug similarly
+       later. Note that Debug attaches VS debug libraries which bog up the code.
+       It'll be much more useful in debugging via VS though. Close the dialog
+       box via OK.
+
+    3. Select Project -> Properties... 
+       Under Configuration Properties -> General: 
+       1. Change the Output Directory optionally to: $(SolutionDir)Build\
+       2. Change the Target Name to whatever you want, optionally use 
+          $(Configuration) in the name to differentiate between Debug and 
+          Release builds.
+       Under Configuration Properties -> VC++ Directories:
+       1. Edit Include Directories to include $(ProjectDir)include\ (if you 
+          extracted SDL into here)
+       2. 
 
   OSX
   ~~~
