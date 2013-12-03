@@ -68,7 +68,7 @@ Building
 Font editor???
 --------------
 
-  The font editor has been relocated relocated to 
+  The font editor has been relocated to 
   https://github.com/boxmein/tpt-font-editor . 
   The font.h produced is compatible, yet the program itself is far more
   reasonable to use. Make sure to unpack the current font.h before editing.
