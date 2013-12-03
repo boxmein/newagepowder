@@ -2,6 +2,7 @@
 powder
 powder-debug
 powder-sse*
+powder-64
 font/editor
 powder.def
 gmon.out
