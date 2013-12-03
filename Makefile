@@ -13,41 +13,41 @@ LINUX_TARG := powder-64-sse2 powder-sse powder-sse2
 WIN32_TARG := powder-sse.exe powder-sse2.exe
 
 powder: $(SOURCES) $(HEADERS)
-	gcc -m64 -DINTERNAL -o$@ $(CFLAGS) $(OFLAGS) $(LFLAGS) $(MFLAGS_SSE3) $(SOURCES) -DLIN64
+	gcc -m64 -DINTERNAL -o $@ $(CFLAGS) $(OFLAGS) $(LFLAGS) $(MFLAGS_SSE3) $(SOURCES) -DLIN64
 
 powder-debug: $(SOURCES) $(HEADERS)
-	gcc -m64 -o$@ $(FLAGS_DBUG) -DLIN64 $(SOURCES)
+	gcc -m64 -o $@ $(FLAGS_DBUG) -DLIN64 $(SOURCES)
 
 powder-sse3: $(SOURCES) $(HEADERS)
-	gcc -m32 -o$@ $(CFLAGS) $(OFLAGS) $(LFLAGS) $(MFLAGS_SSE3) $(SOURCES) -DLIN32
+	gcc -m32 -o $@ $(CFLAGS) $(OFLAGS) $(LFLAGS) $(MFLAGS_SSE3) $(SOURCES) -DLIN32
 	strip $@
 powder-sse2: $(SOURCES) $(HEADERS)
-	gcc -m32 -o$@ $(CFLAGS) $(OFLAGS) $(LFLAGS) $(MFLAGS_SSE2) $(SOURCES) -DLIN32
+	gcc -m32 -o $@ $(CFLAGS) $(OFLAGS) $(LFLAGS) $(MFLAGS_SSE2) $(SOURCES) -DLIN32
 	strip $@
 powder-sse: $(SOURCES) $(HEADERS)
-	gcc -m32 -o$@ $(CFLAGS) $(OFLAGS) $(LFLAGS) $(MFLAGS_SSE) $(SOURCES) -DLIN32
+	gcc -m32 -o $@ $(CFLAGS) $(OFLAGS) $(LFLAGS) $(MFLAGS_SSE) $(SOURCES) -DLIN32
 	strip $@
 
 powder-64-sse3: $(SOURCES) $(HEADERS)
-	gcc -m64 -o$@ $(CFLAGS) $(OFLAGS) $(LFLAGS) $(MFLAGS_SSE3) $(SOURCES) -DLIN64
+	gcc -m64 -o $@ $(CFLAGS) $(OFLAGS) $(LFLAGS) $(MFLAGS_SSE3) $(SOURCES) -DLIN64
 	strip $@
 powder-64-sse2: $(SOURCES) $(HEADERS)
-	gcc -m64 -o$@ $(CFLAGS) $(OFLAGS) $(LFLAGS) $(MFLAGS_SSE2) $(SOURCES) -DLIN64
+	gcc -m64 -o $@ $(CFLAGS) $(OFLAGS) $(LFLAGS) $(MFLAGS_SSE2) $(SOURCES) -DLIN64
 	strip $@
 
 powder-res.o: powder-res.rc powder.ico
-	i586-mingw32msvc-windres powder-res.rc powder-res.o
+	windres powder-res.rc powder-res.o
 
 powder-sse3.exe: $(SOURCES) $(HEADERS) powder-res.o
-	i586-mingw32msvc-gcc -o$@ $(CFLAGS) $(OFLAGS) $(MFLAGS_SSE3) $(SOURCES) powder-res.o -lmingw32 -lws2_32 -lSDLmain $(LFLAGS) -mwindows -DWIN32
+	gcc -o $@ $(CFLAGS) $(OFLAGS) $(MFLAGS_SSE3) $(SOURCES) powder-res.o -lmingw32 -lws2_32 -lSDLmain $(LFLAGS) -mwindows -DWIN32
 	strip $@
-	chmod 0644 $@
+	# chmod 0644 $@
 powder-sse2.exe: $(SOURCES) $(HEADERS) powder-res.o
-	i586-mingw32msvc-gcc -o$@ $(CFLAGS) $(OFLAGS) $(MFLAGS_SSE2) $(SOURCES) powder-res.o -lmingw32 -lws2_32 -lSDLmain $(LFLAGS) -mwindows -DWIN32
+	gcc -o $@ $(CFLAGS) $(OFLAGS) $(MFLAGS_SSE2) $(SOURCES) powder-res.o -lmingw32 -lws2_32 -lSDLmain $(LFLAGS) -mwindows -DWIN32
 	strip $@
 	chmod 0644 $@
 powder-sse.exe: $(SOURCES) $(HEADERS) powder-res.o
-	i586-mingw32msvc-gcc -o$@ $(CFLAGS) $(OFLAGS) $(MFLAGS_SSE) $(SOURCES) powder-res.o -lmingw32 -lws2_32 -lSDLmain $(LFLAGS) -mwindows -DWIN32
+	gcc -o $@ $(CFLAGS) $(OFLAGS) $(MFLAGS_SSE) $(SOURCES) powder-res.o -lmingw32 -lws2_32 -lSDLmain $(LFLAGS) -mwindows -DWIN32
 	strip $@
 	chmod 0644 $@
 

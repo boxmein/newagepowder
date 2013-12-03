@@ -99,7 +99,7 @@ char *it_msg =
     "\bbirc.unaligned.org #wtf\n"
     "\n"
     "\bg(c) 2008-9 Stanislaw K Skowronek\n"
-    "\bg(c) 2013 #newagepowder staff
+    "\bg(c) 2013 #newagepowder staff"
     "\n"
     "\bgSpecial thanks to Brian Ledbetter for maintaining ports & server development."
     "\nThanks to CW for hosting the server."
