@@ -68,7 +68,7 @@ Building
 Font editor???
 --------------
 
-  The font editor has been relocated relocated to 
+  The font editor has been relocated to 
   https://github.com/boxmein/tpt-font-editor . 
   The font.h produced is compatible, yet the program itself is far more
   reasonable to use. Make sure to unpack the current font.h before editing.
@@ -78,6 +78,6 @@ Credits
 
   Originally by Skylark
   This project started by Ristovski, Nibble and boxmein 
-  from irc.freenode.net #newagepowder2
+  from irc.freenode.net #newagepowder
 
   Still licensed under the GPL which can be found in ./LICENSE
