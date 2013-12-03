@@ -12,7 +12,11 @@ FLAGS_DBUG := -Wall -std=c99 -pg -O2 -DX86 -DX86_SSE3 -msse3 -lSDL -lm -lpthread
 LINUX_TARG := powder-64-sse2 powder-sse powder-sse2
 WIN32_TARG := powder-sse.exe powder-sse2.exe
 
-powder: $(SOURCES) $(HEADERS)
+# Linux builds
+
+all: powder
+powder: powder-sse
+powder-64: $(SOURCES) $(HEADERS)
 	gcc -m64 -DINTERNAL -o $@ $(CFLAGS) $(OFLAGS) $(LFLAGS) $(MFLAGS_SSE3) $(SOURCES) -DLIN64
 
 powder-debug: $(SOURCES) $(HEADERS)
@@ -35,49 +39,45 @@ powder-64-sse2: $(SOURCES) $(HEADERS)
 	gcc -m64 -o $@ $(CFLAGS) $(OFLAGS) $(LFLAGS) $(MFLAGS_SSE2) $(SOURCES) -DLIN64
 	strip $@
 
+
+# Windows builds
+
 powder-res.o: powder-res.rc powder.ico
 	windres powder-res.rc powder-res.o
 
 powder-sse3.exe: $(SOURCES) $(HEADERS) powder-res.o
 	gcc -o $@ $(CFLAGS) $(OFLAGS) $(MFLAGS_SSE3) $(SOURCES) powder-res.o -lmingw32 -lws2_32 -lSDLmain $(LFLAGS) -mwindows -DWIN32
-	strip $@
-	# chmod 0644 $@
+
 powder-sse2.exe: $(SOURCES) $(HEADERS) powder-res.o
 	gcc -o $@ $(CFLAGS) $(OFLAGS) $(MFLAGS_SSE2) $(SOURCES) powder-res.o -lmingw32 -lws2_32 -lSDLmain $(LFLAGS) -mwindows -DWIN32
-	strip $@
-	chmod 0644 $@
+
 powder-sse.exe: $(SOURCES) $(HEADERS) powder-res.o
 	gcc -o $@ $(CFLAGS) $(OFLAGS) $(MFLAGS_SSE) $(SOURCES) powder-res.o -lmingw32 -lws2_32 -lSDLmain $(LFLAGS) -mwindows -DWIN32
-	strip $@
-	chmod 0644 $@
 
-powder-src.tar.bz2: *.c *.h *.rc *.ico Makefile
-	mkdir powder-src
-	cp *.c *.h *.rc *.ico Makefile powder-src/
-	tar cfj powder-src.tar.bz2 powder-src
-	rm -rf powder-src
+# Linux->Windows cross compiling
+# I won't guarantee this works but it was in the original so it might
 
-release: $(LINUX_TARG) $(WIN32_TARG) powder-src.tar.bz2
-	tar cfz powder-linux.tar.gz $(LINUX_TARG)
-	cp /usr/i586-mingw32msvc/bin/SDL.dll .
-	zip powder-win32.zip $(WIN32_TARG) SDL.dll
-	mkdir -p release
-	mv powder-linux.tar.gz release/
-	mv powder-win32.zip release/
-	mv powder-src.tar.bz2 release/
-	cp powder-sse.exe powder.exe
-	rm -f release/powder.zip
-	zip release/powder.zip powder.exe SDL.dll
-	cp powder-64-sse2 release/powder64
-	rm -f release/powder64.gz
-	gzip release/powder64
-	rm -f release/powder.gz
-	cp powder-sse release/powder
-	gzip release/powder
-	cd release; tar czf powder-bin.tar.gz powder.gz powder64.gz powder-linux.tar.gz powder-win32.zip powder.zip; cd ..
-	rm -f $(LINUX_TARG) $(WIN32_TARG) SDL.dll powder.exe
+cross-powder-res.o: powder-res.rc powder.ico
+        i586-mingw32msvc-windres powder-res.rc powder-res.o
+
+cross-powder-sse3.exe: $(SOURCES) $(HEADERS) powder-res.o
+        i586-mingw32msvc-gcc -o$@ $(CFLAGS) $(OFLAGS) $(MFLAGS_SSE3) $(SOURCES) powder-res.o -lmingw32 -lws2_32 -lSDLmain $(LFLAGS) -mwindows -DWIN32
+        strip $@
+        chmod 0644 $@
+cross-powder-sse2.exe: $(SOURCES) $(HEADERS) powder-res.o
+        i586-mingw32msvc-gcc -o$@ $(CFLAGS) $(OFLAGS) $(MFLAGS_SSE2) $(SOURCES) powder-res.o -lmingw32 -lws2_32 -lSDLmain $(LFLAGS) -mwindows -DWIN32
+        strip $@
+        chmod 0644 $@
+cross-powder-sse.exe: $(SOURCES) $(HEADERS) powder-res.o
+        i586-mingw32msvc-gcc -o$@ $(CFLAGS) $(OFLAGS) $(MFLAGS_SSE) $(SOURCES) powder-res.o -lmingw32 -lws2_32 -lSDLmain $(LFLAGS) -mwindows -DWIN32
+        strip $@
+        chmod 0644 $@
+
 
 # Fetch all dependencies in one convenient command
-# TODO: add for other package managers
 deps: 
-	sudo apt-get install libsdl1.2-dev libbz2-dev zlib1g-dev
+	sudo apt-get install libsdl1.2-dev libbz2-dev
+
+# Windows: check out the readme
+# OSX too
+# non-Debian Linux too
