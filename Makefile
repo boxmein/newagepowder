@@ -58,20 +58,20 @@ powder-sse.exe: $(SOURCES) $(HEADERS) powder-res.o
 # I won't guarantee this works but it was in the original so it might
 
 cross-powder-res.o: powder-res.rc powder.ico
-        i586-mingw32msvc-windres powder-res.rc powder-res.o
+	i586-mingw32msvc-windres powder-res.rc powder-res.o
 
 cross-powder-sse3.exe: $(SOURCES) $(HEADERS) powder-res.o
-        i586-mingw32msvc-gcc -o$@ $(CFLAGS) $(OFLAGS) $(MFLAGS_SSE3) $(SOURCES) powder-res.o -lmingw32 -lws2_32 -lSDLmain $(LFLAGS) -mwindows -DWIN32
-        strip $@
-        chmod 0644 $@
+	i586-mingw32msvc-gcc -o$@ $(CFLAGS) $(OFLAGS) $(MFLAGS_SSE3) $(SOURCES) powder-res.o -lmingw32 -lws2_32 -lSDLmain $(LFLAGS) -mwindows -DWIN32
+	strip $@
+	chmod 0644 $@
 cross-powder-sse2.exe: $(SOURCES) $(HEADERS) powder-res.o
-        i586-mingw32msvc-gcc -o$@ $(CFLAGS) $(OFLAGS) $(MFLAGS_SSE2) $(SOURCES) powder-res.o -lmingw32 -lws2_32 -lSDLmain $(LFLAGS) -mwindows -DWIN32
-        strip $@
-        chmod 0644 $@
+	i586-mingw32msvc-gcc -o$@ $(CFLAGS) $(OFLAGS) $(MFLAGS_SSE2) $(SOURCES) powder-res.o -lmingw32 -lws2_32 -lSDLmain $(LFLAGS) -mwindows -DWIN32
+	strip $@
+	chmod 0644 $@
 cross-powder-sse.exe: $(SOURCES) $(HEADERS) powder-res.o
-        i586-mingw32msvc-gcc -o$@ $(CFLAGS) $(OFLAGS) $(MFLAGS_SSE) $(SOURCES) powder-res.o -lmingw32 -lws2_32 -lSDLmain $(LFLAGS) -mwindows -DWIN32
-        strip $@
-        chmod 0644 $@
+	i586-mingw32msvc-gcc -o$@ $(CFLAGS) $(OFLAGS) $(MFLAGS_SSE) $(SOURCES) powder-res.o -lmingw32 -lws2_32 -lSDLmain $(LFLAGS) -mwindows -DWIN32
+	strip $@
+	chmod 0644 $@
 
 
 # Fetch all dependencies in one convenient command
