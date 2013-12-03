@@ -76,3 +76,8 @@ release: $(LINUX_TARG) $(WIN32_TARG) powder-src.tar.bz2
 	gzip release/powder
 	cd release; tar czf powder-bin.tar.gz powder.gz powder64.gz powder-linux.tar.gz powder-win32.zip powder.zip; cd ..
 	rm -f $(LINUX_TARG) $(WIN32_TARG) SDL.dll powder.exe
+
+# Fetch all dependencies in one convenient command
+# TODO: add for other package managers
+deps: 
+	sudo apt-get install libsdl1.2-dev libbz2-dev zlib1g-dev
