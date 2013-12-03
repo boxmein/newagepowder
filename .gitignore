@@ -4,3 +4,5 @@ powder-debug
 powder-sse*
 powder.def
 gmon.out
+# Object files
+*.o
